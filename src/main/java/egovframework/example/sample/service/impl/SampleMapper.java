@@ -42,7 +42,7 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 등록한다.
-	 * @param vo - 등록할 정보가 담긴 SampleVO
+	 * @param vo - 등록할 정보가 담긴 BoardVO
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
@@ -50,7 +50,7 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 수정한다.
-	 * @param vo - 수정할 정보가 담긴 SampleVO
+	 * @param vo - 수정할 정보가 담긴 BoardVO
 	 * @return void형
 	 * @exception Exception
 	 */
@@ -58,7 +58,7 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 삭제한다.
-	 * @param vo - 삭제할 정보가 담긴 SampleVO
+	 * @param vo - 삭제할 정보가 담긴 BoardVO
 	 * @return void형
 	 * @exception Exception
 	 */
@@ -66,7 +66,7 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 조회한다.
-	 * @param vo - 조회할 정보가 담긴 SampleVO
+	 * @param vo - 조회할 정보가 담긴 BoardVO
 	 * @return 조회한 글
 	 * @exception Exception
 	 */

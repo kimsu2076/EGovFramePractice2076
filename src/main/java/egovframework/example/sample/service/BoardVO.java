@@ -31,8 +31,8 @@ package egovframework.example.sample.service;
  *
  *  Copyright (C) by MOPAS All right reserved.
  */
-public class SampleVO extends SampleDefaultVO {
-
+public class BoardVO extends SampleDefaultVO {
+ 
 	private static final long serialVersionUID = 1L;
 
 	/** 아이디 */

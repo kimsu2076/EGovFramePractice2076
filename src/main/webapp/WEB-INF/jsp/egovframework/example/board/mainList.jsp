@@ -25,6 +25,26 @@
 	function view() {
 		location.href = "<c:url value='/view.do'/>";
 	}
+	function setPwd(user_id) {
+		if (user_id == "admin") {
+			$("#password").val("1234")
+		} else if (user_id == "guest") {
+			$("#password").val("1234")
+		} else {
+			$("#password").val("1234")
+		}
+	}
+	function check() {
+		if ($("#user_id").val() == "") {
+			alert("아이디를 입력하세요");
+			return false;
+		}
+		if ($("#password").val() == "") {
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		return true;
+	}
 </script>
 </head>
 <body>
@@ -32,17 +52,22 @@
 		<h1 class="mb-4">메인화면</h1>
 		<br>
 		<div class="card-header">
-			<form class="row g-3" action="/mainList.do">
+			<form class="row g-3 align-items-end" method="post" action="/login.do">
 				<div class="col-md-4">
-					<label for="id" class="form-label">아이디</label> <input type="text"
-						class="form-control" id="id" name="id">
+					<label for="user_id" class="form-label">아이디</label> <select
+						class="form-select" id="user_id" name="user_id"
+						onchange="setPwd(this.value);">
+						<option value="">선택하세요</option>
+						<option value="admin">관리자</option>
+						<option value="guest">사용자</option>
+					</select>
 				</div>
 				<div class="col-md-4">
-					<label for="pwd" class="form-label">Password</label> <input
-						type="password" class="form-control" id="pwd" name="pwd">
+					<label for="password" class="form-label">Password</label> <input
+						type="password" class="form-control" id="password" name="password">
 				</div>
 				<div class="col-md-4 d-flex align-items-end">
-					<button type="submit" class="btn btn-primary">로그인</button>
+					<button type="submit" class="btn btn-primary w-100 onclick=return check();">로그인</button>
 				</div>
 			</form>
 		</div>
