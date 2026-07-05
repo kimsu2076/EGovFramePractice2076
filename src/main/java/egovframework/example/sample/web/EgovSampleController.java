@@ -56,7 +56,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EgovSampleController {
 
-	/** EgovSampleService */
+	/** BoardService */
 	private final EgovSampleService sampleService;
 
 	/** EgovPropertyService */

@@ -52,24 +52,39 @@
 		<h1 class="mb-4">메인화면</h1>
 		<br>
 		<div class="card-header">
-			<form class="row g-3 align-items-end" method="post" action="/login.do">
-				<div class="col-md-4">
-					<label for="user_id" class="form-label">아이디</label> <select
-						class="form-select" id="user_id" name="user_id"
-						onchange="setPwd(this.value);">
-						<option value="">선택하세요</option>
-						<option value="admin">관리자</option>
-						<option value="guest">사용자</option>
-					</select>
+			<c:if
+				test="${sessionScope.userId == null || sessionScope.userId == ''}">
+				<form class="row g-3 align-items-end" method="get"
+					action="/login.do">
+					<div class="col-md-4">
+						<label for="user_id" class="form-label">아이디</label> <select
+							class="form-select" id="user_id" name="user_id"
+							onchange="setPwd(this.value);">
+							<option value="">선택하세요</option>
+							<option value="admin">관리자</option>
+							<option value="guest">사용자</option>
+						</select>
+					</div>
+					<div class="col-md-4">
+						<label for="password" class="form-label">Password</label> <input
+							type="password" class="form-control" id="password"
+							name="password">
+					</div>
+					<div class="col-md-4">
+						<button type="submit" class="btn btn-primary w-100"
+							onclick="return check();">로그인</button>
+					</div>
+				</form>
+			</c:if>
+			<c:if
+				test="${sessionScope.userId != null && sessionScope.userId != ''}">
+				<div class="d-flex justify-content-between align-items-center">
+					<div>
+						<strong>${sessionScope.userName}</strong>님 환영합니다
+					</div>
+					<button type="button" class="btn btn-secondary" onclick="out();">로그아웃</button>
 				</div>
-				<div class="col-md-4">
-					<label for="password" class="form-label">Password</label> <input
-						type="password" class="form-control" id="password" name="password">
-				</div>
-				<div class="col-md-4 d-flex align-items-end">
-					<button type="submit" class="btn btn-primary w-100 onclick=return check();">로그인</button>
-				</div>
-			</form>
+			</c:if>
 		</div>
 		<br>
 		<div class="card-body">

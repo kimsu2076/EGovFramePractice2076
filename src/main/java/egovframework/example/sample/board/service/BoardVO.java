@@ -13,42 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package egovframework.example.sample.service;
+package egovframework.example.sample.board.service;
+
+import egovframework.example.sample.service.SampleDefaultVO;
 
 /**
  * @Class Name : BoardVO.java
  * @Description : BoardVO Class
  * @Modification Information
- * @
- * @  수정일      수정자              수정내용
- * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ @ 수정일 수정자 수정내용 @ --------- --------- ------------------------------- @
+ *   2009.03.16 최초생성
  *
  * @author 개발프레임웍크 실행환경 개발팀
  * @since 2009. 03.16
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
+ *      Copyright (C) by MOPAS All right reserved.
  */
 public class BoardVO extends SampleDefaultVO {
- 
+
 	private static final long serialVersionUID = 1L;
 
-	/** 아이디 */
-	private String id;
+	private String title;
+	private String contents;
+	private String count;
+	private String writer;
+	private String writerNm;
+	private String indate;
 
-	/** 이름 */
-	private String name;
+	private String seq;
+	private String reply;
 
-	/** 내용 */
-	private String description;
+	private String filename;
 
-	/** 사용여부 */
-	private String useYn;
-
-	/** 등록자 */
-	private String regUser;
+	private String userId;
+	private String password;
 
 	public String getId() {
 		return id;
