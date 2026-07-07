@@ -35,6 +35,8 @@ public class BoardVO extends SampleDefaultVO {
 
 	private static final long serialVersionUID = 1L;
 
+	
+	private String idx;
 	private String title;
 	private String contents;
 	private String count;
@@ -50,44 +52,101 @@ public class BoardVO extends SampleDefaultVO {
 	private String userId;
 	private String password;
 
-	public String getId() {
-		return id;
+	public String getIdx() {
+		return idx;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdx(String idx) {
+		this.idx = idx;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
-	public String getUseYn() {
-		return useYn;
+	public String getCount() {
+		return count;
 	}
 
-	public void setUseYn(String useYn) {
-		this.useYn = useYn;
+	public void setCount(String count) {
+		this.count = count;
 	}
 
-	public String getRegUser() {
-		return regUser;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setRegUser(String regUser) {
-		this.regUser = regUser;
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public String getWriterNm() {
+		return writerNm;
+	}
+
+	public void setWriterNm(String writerNm) {
+		this.writerNm = writerNm;
+	}
+
+	// Controller에서 찾던 setIndate가 바로 여기에 있어요!
+	public String getIndate() {
+		return indate;
+	}
+
+	public void setIndate(String indate) {
+		this.indate = indate;
+	}
+
+	public String getSeq() {
+		return seq;
+	}
+
+	public void setSeq(String seq) {
+		this.seq = seq;
+	}
+
+	public String getReply() {
+		return reply;
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

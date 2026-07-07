@@ -70,7 +70,7 @@
 			test="searchKeyword != null and searchKeyword != ''">
 			AND ( A.TITLE LIKE CONCAT('%', #{searchKeyword}, '%'))
 			OR A.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
-</if>
+		</if>
 		ORDER BY A.IDX DESC </select>
 
 	<select id="selectBoardListTotCnt" parameterType="boardVO" resultType="int">
@@ -78,7 +78,15 @@
 			test="searchKeyword != null and searchKeyword != ''">
 			AND ( A.TITLE LIKE CONCAT('%', #{searchKeyword}, '%'))
 			OR A.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
-</if>
+		</if>
+	</select>
+
+	<select id="selectLoginCheck" parameterType="boardVO" resultType="String">
+		SELECT USER_NAME
+		FROM TBL_USER
+		WHERE 1=1
+		AND USER_ID = #{userId}
+		AND PASSWORD = #{password}
 	</select>
 
 </mapper>

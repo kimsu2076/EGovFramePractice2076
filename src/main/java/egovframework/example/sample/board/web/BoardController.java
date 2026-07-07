@@ -41,7 +41,7 @@ public class BoardController {
 		System.out.println("password:" + password);
 		
 		BoardVO boardVO = new BoardVO();
-		boardVO.serUserId(user_id);
+		boardVO.setUserId(user_id);
 		boardVO.setPassword(password);
 		String user_name = boardService.selectLoginCheck(boardVO);
 		
@@ -51,7 +51,7 @@ public class BoardController {
 		}else {
 			request.getSession().setAttribute("userId", "");
 			request.getSession().setAttribute("userName", "");
-			model.addAttribute("msg","사용자 정보가 올바르지 않습니다.")
+			model.addAttribute("msg","사용자 정보가 올바르지 않습니다.");
 		}
 		return "/board/mainList";
 	}

@@ -143,4 +143,15 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		return boardDAO.selectBoardListTotCnt(searchVO);
 	}
 
+	/**
+	 * 로그인을 체크한다. * @param vo - 로그인 정보가 담긴 BoardVO
+	 * 
+	 * @return 사용자 이름 (String)
+	 * @exception Exception
+	 */
+	@Override
+	public String selectLoginCheck(BoardVO vo) throws Exception {
+		return boardDAO.selectLoginCheck(vo);
+	}
+
 }
