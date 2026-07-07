@@ -59,9 +59,8 @@
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<thead class="table-light">
-								<tr>
-									<th>#</th>
-									<th>게시물목록</th>
+								<tr>									
+									<th>게시물번호</th>
 									<th>제목</th>
 									<th>조회수</th>
 									<th>등록자</th>
