@@ -44,6 +44,10 @@
 			return false;
 		}
 		return true;
+				}
+	function out(){
+		location.href ="<c:url value='/logout.do'/>";
+		}
 	}
 </script>
 </head>

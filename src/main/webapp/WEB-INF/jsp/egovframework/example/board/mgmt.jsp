@@ -1,71 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>Bootstrap 5 Example</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<!DOCTYPE html>
+		<html>
 
-<!-- Bootstrap 5 CSS & JS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javaScript" language="javascript" defer="defer">
+		<head>
+			<title>Bootstrap 5 Example</title>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+
+			<!-- Bootstrap 5 CSS & JS -->
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+			<script type="text/javaScript" language="javascript" defer="defer">
 	function cancel() {
 		location.href = "<c:url value='/mainList.do'/>";
 	}
 </script>
-</head>
-<body>
-	<div class="container my-4">
-		<h1>등록/수정화면</h1>
-		<div class="card mb-4">
-			<div class="card-header">
-				<label>생각중:</label>
+		</head>
+
+		<body>
+			<div class="container my-4">
+				<h1>등록/수정화면</h1>
+				<div class="card mb-4">
+					<div class="card-header">
+						<label>생각중:</label>
+					</div>
+					<div class="card-body">
+						<form class="row g-3" method="post" action="/">
+							<div class="row mb-3">
+								<label class="col-sm-2 col-form-label">게시물아이디:</label>
+								<div class="col-sm-10 d-flex align-items-center">
+									<div>게시물아이디</div>
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								<label class="col-sm-2 col-form-label">제목:</label>
+								<div class="col-sm-10 d-flex align-items-center">
+									<input type="text" class="form-control" id="title" name="title"
+										placeholder="제목을 입력하세요" maxLength="100" value="${boardVO.title }">
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								<label class="col-sm-2 col-form-label">등록자/등록일:</label>
+								<div class="col-sm-10 d-flex align-items-center flex-wrap">
+									<input type="hidden" class="form-control me-2 mb-1" id="writer" name="writer"
+										placeholder="등록자를 입력하세요" maxlength="15" value="${boardVO.writer }"
+										style="width:40%;">
+									<input type="text" class="form-control me-2 mb-1" id="writerNm" name="writerNm"
+										placeholder="등록자를 입력하세요" maxlength="15" value="${boardVO.writerNm }"
+										style="width:40%;">
+									<input type="text" class="form-control mb-1" id="indate" name="indate"
+										placeholder="등록일을 입력하세요" maxlength="10" value="${boardVO.indate }"
+										style="width:40%;">
+								</div>
+							</div>
+
+							<div class="row mb-3">
+								<label class="col-sm-2 col-form-label">내용:</label>
+								<div class="col-sm-10">
+									<textarea class="form-control" rows="5" id="contents" name="contents"
+										maxlength="1000">${boardVO.contents}</textarea>
+								</div>
+							</div>
+
+						</form>
+					</div>
+
+					<div class="card-footer text-end">
+						<c:if test="${!empty sessionScope.userId }">
+							<button type="button" class="btn btn-secondary">수정</button>
+							<button type="button" class="btn btn-danger">삭제</button>
+						</c:if>
+						<button type="button" class="btn btn-secondary" onclick="cancel();">목록</button>
+					</div>
+				</div>
 			</div>
-			<div class="card-body">
-				<form class="row g-3" method="post" action="/">
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">게시물아이디:</label>
-						<div class="col-sm-10 d-flex align-items-center">
-							<div>게시물아이디</div>
-						</div>
-					</div>
+		</body>
 
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">제목:</label>
-						<div class="col-sm-10 d-flex align-items-center">
-							<div>제목</div>
-						</div>
-					</div>
-
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">등록자/등록일:</label>
-						<div class="col-sm-10 d-flex align-items-center">
-							<div>등록자/등록일</div>
-						</div>
-					</div>
-
-					<div class="row mb-3">
-						<label class="col-sm-2 col-form-label">내용:</label>
-						<div class="col-sm-10 d-flex align-items-center">
-							<div>내용</div>
-						</div>
-					</div>
-
-				</form>
-			</div>
-
-			<div class="card-footer text-end">
-				<button type="button" class="btn btn-secondary">수정</button>
-				<button type="button" class="btn btn-danger">삭제</button>
-				<button type="button" class="btn btn-secondary" onclick="cancel();">목록</button>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+		</html>

@@ -150,8 +150,8 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 	 * @exception Exception
 	 */
 	@Override
-	public String selectLoginCheck(BoardVO vo) throws Exception {
-		return boardDAO.selectLoginCheck(vo);
+	public String selectLoginCheck(BoardVO searchVO) throws Exception {
+		return boardDAO.selectLoginCheck(searchVO);
 	}
 
 }

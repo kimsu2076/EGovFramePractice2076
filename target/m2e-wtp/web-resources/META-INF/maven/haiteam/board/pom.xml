@@ -149,6 +149,7 @@
 			<scope>test</scope>
 		</dependency>
 
+
 		<!-- DBCP (Connection Pool) -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -176,7 +177,45 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>8.4.0</version>
 		</dependency>
-		
+
+		<!-- DBCP (Connection Pool) -->
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!-- Commons Pool (DBCP가 의존) -->
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+		<!-- log4jdbc (SQL 로그 출력용) -->
+		<dependency>
+			<groupId>com.googlecode.log4jdbc</groupId>
+			<artifactId>log4jdbc</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.4.0</version>
+		</dependency>
+
+	<!--
+		<dependency>
+			<groupId>ojbc</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>14</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc-14.jar</systemPath>
+			</dependency>
+		 -->
+
 	</dependencies>
 
 	<build>

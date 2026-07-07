@@ -95,6 +95,6 @@ public interface BoardMapper {
 	 */
 	int selectBoardListTotCnt(BoardVO searchVO);
 
-	String selectLoginCheck(BoardVO vo) throws Exception;
+	String selectLoginCheck(BoardVO searchVO) throws Exception;
 	
 }
