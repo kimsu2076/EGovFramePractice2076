@@ -165,4 +165,6 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 	boardDAO.insertReply(vo);
 	}
 
+	public List<?> selectReplyList(BoardVO searchVO) throws Exception {  return boardDAO.selectReplyList(searchVO); }
+
 }

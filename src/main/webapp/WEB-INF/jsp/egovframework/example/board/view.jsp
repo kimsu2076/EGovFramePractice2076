@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 pageContext.setAttribute("crcn", "\r\n"); // Space, Enter  pageContext.setAttribute("br", "<br/>"); // br태그
 %>
@@ -109,7 +110,20 @@ pageContext.setAttribute("crcn", "\r\n"); // Space, Enter  pageContext.setAttrib
 				</c:if>
 			<button type="button" class="btn btn-secondary" onclick="list();">목록</button>
 		</div>
-		
+		<c:forEach var="result" items="${resultList}" varStatus="status">
+		<div class="card mb-3 border rounded shadow-sm">
+			<div class="card-body">
+				<h6 class="card-subtitle mb-2 text-muted">
+					<c:out value="${result.writer}"/> /
+					<c:out value="${result.indate}" />            
+				</h6>
+				<p class="card-text">
+					<c:out value="${fn:replace(result.reply, crcn, br)}" escapeXml="false"/>
+				</p>
+			</div>
+		</div>
+</c:forEach>
+
 		<div class="mt-3 p-2 bg-light border rounded">작성자/작성일</div>
 		
 		<div class="mt-3 p-4 bg-body-tertiary border rounded">
@@ -122,7 +136,7 @@ pageContext.setAttribute("crcn", "\r\n"); // Space, Enter  pageContext.setAttrib
 					</div>
 			    <div class="col-sm-5">
 			      <input type="text" class="form-control" id="indate" name="indate"
-			             placeholder="작성일을 입력하세요" maxlength="10">
+			             placeholder="작성일을 입력하세요" maxlength="10" readonly style="width:100%;" value="${strToday}">
 			    </div>
 			  </div>
 			

@@ -96,8 +96,12 @@
 				               placeholder="등록자를 입력하세요" maxlength="15" value="${boardVO.writer }" style="width:40%;">
 				        <input type="text" class="form-control me-2 mb-1" id="writerNm" name="writerNm"
 				               placeholder="등록자를 입력하세요" maxlength="15" value="${boardVO.writerNm }" style="width:40%;">
-				        <input type="text" class="form-control mb-1" id="indate" name="indate"
-				               placeholder="등록일을 입력하세요" maxlength="10" value="${boardVO.indate }" style="width:40%;">
+				        <c:set var="indate" value="${boardVO.indate}" />
+						<c:if test="${fn:length(indate) > 9}">
+							<c:set var="indate" value="${fn:substring(indate, 0, fn:length(indate) - 2)}" />
+						</c:if>
+						<input type="text" class="form-control mb-1" id="indate" name="indate"
+							placeholder="등록일을 입력하세요" maxlength="10" style="width:40%;" value="${indate}" />
 						</div>
 					</div>
 

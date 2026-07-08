@@ -98,4 +98,6 @@ public interface BoardMapper {
 	String selectLoginCheck(BoardVO searchVO) throws Exception;
 	
 	void insertReply(BoardVO vo) throws Exception;
+
+	List<?> selectReplyList(BoardVO searchVO) throws Exception;
 }

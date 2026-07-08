@@ -91,4 +91,7 @@ public interface BoardService {
 	String selectLoginCheck(BoardVO vo) throws Exception;
 
 	void insertReply(BoardVO vo) throws Exception;
+
+	List<?> selectReplyList(BoardVO vo) throws Exception;
+
 }

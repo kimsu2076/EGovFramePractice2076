@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.example.sample.board.service.impl.BoardMapper">
 
-    <resultMap id="board" type="egovframework.example.sample.board.service.BoardVO">
-    <result property="idx" column="idx" />
-    <result property="title" column="title" />
-    <result property="contents" column="contents" />
-    <result property="writer" column="writer" />
-    <result property="writerNm" column="writerNm" />
-    <result property="indate" column="indate" />
-
+    <resultMap id="reply" type="egovframework.example.sample.board.service.BoardVO">
+    <result property="idx" column="idx"/>
+    <result property="seq" column="idx"/>
+    <result property="title" column="title"/>
+    <result property="contents" column="contents"/>
+    <result property="writer" column="writer"/>
+    <result property="writerNm" column="writerNm"/>
+    <result property="reply" column="reply"/>
+    <result property="indate" column="indate"/>
     </resultMap>
 
     <insert id="insertBoard" parameterType="boardVO">
@@ -104,5 +105,16 @@ INSERT INTO TBL_REPLY  ( IDX
 , SYSDATE() )
 
 </insert>
+
+<select id="selectReplyList" parameterType="boardVO" resultMap="reply">
+SELECT
+A.IDX as idx
+, A.SEQ as seq
+, A.REPLY as reply
+, A.WRITER as writer
+, A.INDATE as indate  FROM TBL_REPLY A
+WHERE 1=1
+AND IDX = #{idx}  ORDER BY A.SEQ ASC
+</select>
 
 </mapper>

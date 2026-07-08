@@ -87,11 +87,22 @@ public class BoardController {
         return "redirect:mainList.do";
     }
 
-    @RequestMapping (value = "/view.do")
-    public String view(@ModelAttribute ("boardVO") BoardVO boardVO, ModelMap model) throws Exception {
-        boardVO = boardService.selectBoard(boardVO);
+    @RequestMapping(value = "/view.do")
+    public String view(@ModelAttribute("boardVO") BoardVO boardVO, ModelMap model) throws Exception {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar c1 = Calendar.getInstance();  
+        String strToday = sdf.format(c1.getTime());  
+        System.out.println("Today" + strToday);
+
+        boardVO = boardService.selectBoard(boardVO);  
+
         model.addAttribute("boardVO", boardVO);
-        model.addAttribute("boardVO", boardVO);
+        model.addAttribute("strToday", strToday);
+    
+        List<?> list = boardService.selectReplyList(boardVO);
+        // resultlist에 list를 넣음  
+        model.addAttribute("resultList", list);
         return "/board/view";
     }
 
@@ -99,5 +110,11 @@ public class BoardController {
     public String logout(ModelMap model, HttpServletRequest request) throws Exception {
         request.getSession().invalidate();
         return "redirect:mainList.do";
+    }
+    
+    @RequestMapping(value = "/reply.do",  method=RequestMethod.POST)
+    public String reply(@ModelAttribute("boardVO")  BoardVO boardVO, ModelMap model) throws  Exception {
+        boardService.insertReply(boardVO);
+        return  "redirect:/view.do?idx="+boardVO.getIdx();
     }
 }
