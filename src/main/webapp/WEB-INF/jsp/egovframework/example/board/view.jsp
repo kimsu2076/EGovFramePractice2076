@@ -1,76 +1,144 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+pageContext.setAttribute("crcn", "\r\n"); // Space, Enter  pageContext.setAttribute("br", "<br/>"); // br태그
+%>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<title>게시물 상세</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="<c:url value='/js/jquery.min.js'/>"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Bootstrap 5 Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap 5 CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javaScript" language="javascript" defer="defer">
-		function list() {
-			location.href = "<c:url value='/mainList.do'/>";
+	function list(){
+		location.href = "<c:url value='/mainList.do'/>";
+	}
+	function add(){
+
+		if( $("#writer").val() == ''){
+		alert("작성자를 입력하세요");
+		$("#writer").focus();
+		return;
 		}
-		function edit() {
-			location.href = "<c:url value='/mgmt.do'><c:param name='idx' value='${boardVO.idx}'/></c:url>";
+		if( $("#reply").val() == ''){
+		alert("댓글을 입력하세요");
+		$("#title").focus();
+		return;
 		}
+
+		if (!confirm("댓글을 작성하시겠습니까?")){  return;
+		}
+
+		document.form2.action = "<c:url value='reply.do'/>";
+		document.form2.submit();
+	}
+	function modify(){
+		location.href = "<c:url value='/mgmt.do'/>?idx=${boardVO.idx}";
+	}
+	
+	function del(){
+		if (!confirm("삭제하시겠습니까?")){  
+			return;
+		}
+		document.form1.action = "<c:url value='/mgmt.do'/>?mode=del&idx=${boardVO.idx}";
+		document.form1.submit();
+	}
+
 	</script>
 </head>
-
 <body>
-	<div class="container my-4">
-		<h1>상세 화면</h1>
-		<div class="card mb-4">
-			<div class="card-header">
-				<strong>${boardVO.title}</strong>
-			</div>
-
-			<div class="card-body">
+<div class="container my-4">
+  <h1>상세화면</h1>
+	<div class="card mb-4">
+		<div class="card-header">
+			<label> ${sessionScope.userName} 님이 로그인 하셨습니다.</label>
+		</div>
+	
+		<div class="card-body">
+		    <form name="form1" method="post" action="/">
 				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">게시물아이디</label>
-					<div class="col-sm-10 d-flex align-items-center">${boardVO.idx}</div>
-				</div>
-
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">제목</label>
-					<div class="col-sm-10 d-flex align-items-center">${boardVO.title}</div>
-				</div>
-
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">등록자</label>
-					<div class="col-sm-10 d-flex align-items-center">${boardVO.writerNm}</div>
-				</div>
-
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">등록일</label>
-					<div class="col-sm-10 d-flex align-items-center">${boardVO.indate}</div>
-				</div>
-
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">조회수</label>
-					<div class="col-sm-10 d-flex align-items-center">${boardVO.count}</div>
-				</div>
-
-				<div class="row mb-3">
-					<label class="col-sm-2 col-form-label">내용</label>
+					<label class="col-sm-2 col-form-label">게시물아이디:</label>
 					<div class="col-sm-10">
-						<div class="border rounded p-3 bg-light" style="white-space: pre-wrap;">${boardVO.contents}</div>
+					  <input type="text" class="form-control" id="idx"
+					         placeholder="자동발번" value="${boardVO.idx}" readonly>
 					</div>
 				</div>
-			</div>
-
-			<div class="card-footer text-end">
-				<c:if test="${!empty sessionScope.userId }">
-					<button type="button" class="btn btn-secondary" onclick="edit();">수정</button>
-					<button type="button" class="btn btn-danger">삭제</button>
+				
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label">제목:</label>
+					<div class="col-sm-10 d-flex align-items-center">
+					  <input type="text" class="form-control" id="title" name="title"
+					         placeholder="제목을 입력하세요" maxlength="100" value="${boardVO.title}" readonly>
+					</div>
+				</div>
+				
+				<div class="row mb-3">
+				  <label class="col-sm-2 col-form-label">등록자/등록일:</label>
+				  <div class="col-sm-10 d-flex align-items-center">
+				    <div>
+				      ${boardVO.writerNm} /
+				      ${fn:substring(boardVO.indate, 0, fn:length(boardVO.indate) - 2)}
+				    </div>
+				  </div>
+				</div>
+				
+				<div class="row mb-3">
+				  <label class="col-sm-2 col-form-label">내용:</label>
+				  <div class="col-sm-10 d-flex align-items-center">
+				    <div>
+				      <c:out value="${fn:replace(boardVO.contents, crcn, br)}" escapeXml="false" />
+				    </div>
+				  </div>
+				</div>
+				
+		    </form>
+		</div>
+		
+		<div class="card-footer text-end">
+			<c:if test="${!empty sessionScope.userId && sessionScope.userId == boardVO.writer}">
+				<button type="button" class="btn btn-secondary" onclick="modify();">수정</button>
+				<button type="button" class="btn btn-secondary" onclick="del();">삭제</button>
 				</c:if>
-				<button type="button" class="btn btn-secondary" onclick="list();">목록</button>
-			</div>
+			<button type="button" class="btn btn-secondary" onclick="list();">목록</button>
+		</div>
+		
+		<div class="mt-3 p-2 bg-light border rounded">작성자/작성일</div>
+		
+		<div class="mt-3 p-4 bg-body-tertiary border rounded">
+			<form name="form2" method="post" action="">
+			  <div class="row mb-3">
+			    <label for="writer" class="col-sm-2 col-form-label">작성자/작성일:</label>
+					<div class="col-sm-5">
+					  <input type="text" class="form-control" id="writer" name="writer"
+					         placeholder="작성자를 입력하세요" maxlength="15" value=${sessionScope.userName }>
+					</div>
+			    <div class="col-sm-5">
+			      <input type="text" class="form-control" id="indate" name="indate"
+			             placeholder="작성일을 입력하세요" maxlength="10">
+			    </div>
+			  </div>
+			
+			  <div class="mb-3 row">
+			    <label for="reply" class="col-sm-2 col-form-label">내용:</label>
+			    <div class="col-sm-10">
+			      <textarea class="form-control" rows="3" id="reply" name="reply" maxlength="300"></textarea>
+			    </div>
+			  </div>
+			
+			  <div class="text-end">
+			    <button type="submit" class="btn btn-primary" onclick="add();">작성</button>
+			  </div>
+			</form>
 		</div>
 	</div>
+</div>
 </body>
-
 </html>

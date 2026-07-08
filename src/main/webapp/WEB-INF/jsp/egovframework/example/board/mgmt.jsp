@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -36,6 +37,26 @@
 			return;
 		}
 
+		document.boardRegForm.action = "<c:url value='mgmt.do'/>?mode=add";
+		document.boardRegForm.submit();
+	}
+
+	function modify() {
+		if ($("#title").val() == '') {
+			alert("제목을 입력하세요");
+			$("#title").focus();
+			return;
+		}
+		if ($("#contents").val() == '') {
+			alert("내용을 입력하세요");
+			$("#contents").focus();
+			return;
+		}
+
+		if (!confirm("수정 하시겠습니까?")) {
+			return;
+		}
+		document.boardRegForm.action = "<c:url value='mgmt.do'/>?mode=modify";
 		document.boardRegForm.submit();
 	}
 </script>
@@ -49,11 +70,13 @@
 				<label>게시물 등록</label>
 			</div>
 			<div class="card-body">
-				<form class="row g-3" id="boardRegForm" name="boardRegForm" method="post" action="<c:url value='/mgmt.do'/>">
+				<form class="row g-3" id="boardRegForm" name="boardRegForm"
+					method="post" action="<c:url value='/mgmt.do'/>">
 					<div class="row mb-3">
 						<label class="col-sm-2 col-form-label">게시물아이디:</label>
 						<div class="col-sm-10 d-flex align-items-center">
-							<div>${boardVO.idx}</div>
+							<input type="text" class="form-control" id="idx" name="idx"
+								placeholder="자동발번" value="${boardVO.idx}" readonly>
 						</div>
 					</div>
 
@@ -69,15 +92,12 @@
 					<div class="row mb-3">
 						<label class="col-sm-2 col-form-label">등록자/등록일:</label>
 						<div class="col-sm-10 d-flex align-items-center flex-wrap">
-							<input type="hidden" class="form-control me-2 mb-1" id="writer"
-								name="writer" placeholder="등록자를 입력하세요" maxlength="15"
-								value="${boardVO.writer }" style="width: 40%;"> <input
-								type="text" class="form-control me-2 mb-1" id="writerNm"
-								name="writerNm" placeholder="등록자를 입력하세요" maxlength="15"
-								value="${boardVO.writerNm }" style="width: 40%;" readonly="readonly"> <input
-								type="text" class="form-control mb-1" id="indate" name="indate"
-								placeholder="등록일을 입력하세요" maxlength="10"
-								value="${boardVO.indate }" style="width: 40%;" readonly="readonly">
+							<input type="hidden" class="form-control me-2 mb-1" id="writer" name="writer"
+				               placeholder="등록자를 입력하세요" maxlength="15" value="${boardVO.writer }" style="width:40%;">
+				        <input type="text" class="form-control me-2 mb-1" id="writerNm" name="writerNm"
+				               placeholder="등록자를 입력하세요" maxlength="15" value="${boardVO.writerNm }" style="width:40%;">
+				        <input type="text" class="form-control mb-1" id="indate" name="indate"
+				               placeholder="등록일을 입력하세요" maxlength="10" value="${boardVO.indate }" style="width:40%;">
 						</div>
 					</div>
 
@@ -94,11 +114,10 @@
 
 			<div class="card-footer text-end">
 				<c:if test="${!empty sessionScope.userId }">
-					<button type="button" class="btn btn-primary" onclick="add();">등록</button>
-					<button type="button" class="btn btn-secondary">수정</button>
-					<button type="button" class="btn btn-danger">삭제</button>
+					<button type="button" class="btn btn-secondary" onclick="add();">등록</button>
+					<button type="button" class="btn btn-secondary" onclick="modify();">수정</button>
 				</c:if>
-				<button type="button" class="btn btn-secondary" onclick="cancel();">목록</button>
+				<button type="button" class="btn btn-secondary" onclick="cancel();">취소</button>
 			</div>
 		</div>
 	</div>

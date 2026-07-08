@@ -90,4 +90,5 @@ public interface BoardService {
 	// === 여기에 로그인 체크 메소드 선언을 추가해 주세요 ===
 	String selectLoginCheck(BoardVO vo) throws Exception;
 
+	void insertReply(BoardVO vo) throws Exception;
 }

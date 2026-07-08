@@ -1,66 +1,108 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.example.sample.board.service.impl.BoardMapper">
 
-	<resultMap id="board"
-		type="egovframework.example.sample.board.service.BoardVO">
-		<result property="idx" column="idx" />
-		<result property="title" column="title" />
-		<result property="contents" column="contents" />
-		<result property="count" column="count" />
-		<result property="writer" column="writer" />
-		<result property="writerNm" column="writerNm" />
-		<result property="indate" column="indate" />
-	</resultMap>
+    <resultMap id="board" type="egovframework.example.sample.board.service.BoardVO">
+    <result property="idx" column="idx" />
+    <result property="title" column="title" />
+    <result property="contents" column="contents" />
+    <result property="writer" column="writer" />
+    <result property="writerNm" column="writerNm" />
+    <result property="indate" column="indate" />
 
-	<insert id="insertBoard" parameterType="BoardVO">
-		INSERT INTO TBL_BOARD ( TITLE , CONTENTS , "COUNT" , WRITER , INDATE )
-		VALUES ( #{title, jdbcType=VARCHAR} , #{contents, jdbcType=VARCHAR} ,
-		#{count, jdbcType=VARCHAR} , #{writer, jdbcType=VARCHAR} , CURRENT_TIMESTAMP )
-	</insert>
+    </resultMap>
 
-	<update id="updateBoard">
-		UPDATE TBL_BOARD SET TITLE=#{title} , CONTENTS=#{contents} WHERE IDX=#{idx}
-	</update>
+    <insert id="insertBoard" parameterType="boardVO">
+    INSERT INTO TBL_BOARD
+    ( IDX
+, TITLE
+, CONTENTS
+, COUNT
+, WRITER
+, INDATE )
+    VALUES ( NULL
+, #{title, jdbcType = VARCHAR}
+, #{contents, jdbcType = VARCHAR}
+, #{count, jdbcType = VARCHAR}
+, #{writer, jdbcType = VARCHAR}
+, SYSDATE() )
+    </insert>
 
-	<delete id="deleteBoard">
-		DELETE FROM TBL_BOARD WHERE IDX=#{idx}
-	</delete>
+    <update id="updateBoard">
+    UPDATE TBL_BOARD
+    SET TITLE = #{id}
+, CONTENTS = #{title, jdbcType = VARCHAR}
+, DESCRIPTION = #{contents, jdbcType = VARCHAR}
+    WHERE IDX = #{idx}
+    </update>
 
-	<select id="selectBoard" resultMap="board">
-		SELECT A.IDX as idx , A.TITLE as title , A.CONTENTS as contents ,
-		A."COUNT" as "count" , A.WRITER as writer ,
-		FORMATDATETIME(A.INDATE, 'yyyy-MM-dd HH:mm:ss') as indate ,
-		B.USER_NAME as writerNm
-		FROM TBL_BOARD A LEFT JOIN TBL_USER B ON A.WRITER = B.USER_ID WHERE A.IDX=#{idx}
-	</select>
+    <delete id="deleteBoard">
 
-	<select id="selectBoardList" parameterType="boardVO" resultType="egovMap">
-		SELECT A.IDX as idx , A.TITLE as title , A.CONTENTS as contents ,
-		COALESCE(A."COUNT", 0) as "count" , A.WRITER as writer ,
-		FORMATDATETIME(A.INDATE, 'yyyy-MM-dd HH:mm:ss') as indate ,
-		B.USER_NAME as writerNm ,
-		(SELECT COUNT(*) FROM TBL_REPLY X WHERE X.IDX = A.IDX) AS reply
-		FROM TBL_BOARD A LEFT JOIN TBL_USER B ON A.WRITER = B.USER_ID
-		WHERE 1=1
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND ( A.TITLE LIKE '%' || #{searchKeyword} || '%'
-			OR A.CONTENTS LIKE '%' || #{searchKeyword} || '%' )
-		</if>
-		ORDER BY A.IDX DESC
-	</select>
+    DELETE FROM TBL_BOARD
+    WHERE IDX = #{idx}
 
-	<select id="selectBoardListTotCnt" parameterType="boardVO" resultType="int">
-		SELECT COUNT(*) totcnt FROM TBL_BOARD A WHERE 1=1
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND ( A.TITLE LIKE '%' || #{searchKeyword} || '%'
-			OR A.CONTENTS LIKE '%' || #{searchKeyword} || '%' )
-		</if>
-	</select>
+    </delete>
 
-	<select id="selectLoginCheck" parameterType="boardVO" resultType="String">
-		SELECT USER_NAME FROM TBL_USER
-		WHERE USER_ID = #{userId} AND PASSWORD = #{password}
-	</select>
+    <select id="selectBoard" resultMap="board">
+    SELECT
+    A.IDX AS idx
+, A.TITLE AS title
+, A.CONTENTS AS contents
+, A.COUNT AS count
+, A.WRITER AS writer
+, A.INDATE AS indate
+, B.USER_NAME AS writerNm
+    FROM TBL_BOARD A LEFT JOIN TBL_USER B ON A.WRITER = B.USER_ID
+    WHERE A.IDX = #{idx}
+    </select>
+
+    <select id="selectBoardList" parameterType="boardVO" resultMap="board">
+    SELECT
+    A.IDX AS idx
+, A.TITLE AS title
+, A.CONTENTS AS contents
+, IFNULL(A.COUNT,0) AS count
+, A.WRITER AS writer
+, A.INDATE AS indate
+, B.USER_NAME AS writerNm
+, (SELECT COUNT(*) FROM TBL_REPLY X WHERE X.IDX = A.IDX) AS reply  FROM TBL_BOARD A LEFT JOIN TBL_USER B ON A.WRITER = B.USER_ID  WHERE 1 = 1
+    <if test="searchKeyword != null and searchKeyword != ''">
+    AND ( A.TITLE LIKE CONCAT('%', #{searchKeyword}, '%'))
+    OR A.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
+    </if>
+    </select>
+
+    <select id="selectBoardListTotCnt" parameterType="boardVO" resultType="int">
+
+    SELECT COUNT(*) totcnt
+    FROM TBL_BOARD A
+    WHERE 1 = 1
+    <if test="searchKeyword != null and searchKeyword != ''">
+    AND ( A.TITLE LIKE CONCAT('%', #{searchKeyword}, '%'))
+                OR A.CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
+    </if>
+    </select>
+
+    <select id="selectLoginCheck" parameterType="boardVO" resultType="String">
+    SELECT USER_NAME
+    FROM TBL_USER
+    WHERE 1 = 1
+    AND USER_ID = #{userId}
+    AND PASSWORD = #{password}
+    </select>
+
+<insert id="insertReply" parameterType="boardVO">
+
+INSERT INTO TBL_REPLY  ( IDX
+, SEQ
+, REPLY
+, WRITER
+, INDATE)  VALUES (#{idx}
+, (SELECT IFNULL(MAX(X.SEQ)+1,1) FROM TBL_REPLY X WHERE X.IDX = #{idx})
+, #{reply, jdbcType = VARCHAR}
+, #{writer, jdbcType = VARCHAR}
+, SYSDATE() )
+
+</insert>
 
 </mapper>

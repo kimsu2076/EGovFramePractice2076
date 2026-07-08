@@ -154,4 +154,15 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 		return boardDAO.selectLoginCheck(searchVO);
 	}
 
+	public void insertReply(BoardVO vo) throws Exception {
+	LOGGER.debug(vo.toString());
+	// 키 자동채번 필요없음
+	/** ID Generation Service */
+	//String id = egovIdGnrService.getNextStringId();
+	//vo.setId(id);
+	//LOGGER.debug(vo.toString());
+
+	boardDAO.insertReply(vo);
+	}
+
 }
