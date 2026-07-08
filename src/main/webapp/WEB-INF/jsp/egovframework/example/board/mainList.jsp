@@ -8,9 +8,9 @@
 <title>Bootstrap Example</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
-<script src="/js/jquery.min.js"></script>
-<script src="/css/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/css/bootstrap/css/bootstrap.min.css'/>">
+<script src="<c:url value='/js/jquery.min.js'/>"></script>
+<script src="<c:url value='/css/bootstrap/js/bootstrap.min.js'/>"></script>
 
 <!-- Bootstrap 5 CSS & JS -->
 <link
@@ -22,9 +22,11 @@
 	function add() {
 		location.href = "<c:url value='/mgmt.do'/>";
 	}
-	function view() {
+
+	function view(){
 		location.href = "<c:url value='/view.do'/>";
 	}
+
 	function setPwd(user_id) {
 		if (user_id == "admin") {
 			$("#password").val("1234")
@@ -47,91 +49,88 @@
 				}
 	function out(){
 		location.href ="<c:url value='/logout.do'/>";
-		}
 	}
 </script>
 </head>
 <body>
-	<div class="container my-4">
-		<h1 class="mb-4">메인화면</h1>
-		<br>
+<div class="container my-4">
+    <h1 class="mb-4">메인화면</h1>
+
+    <div class="card mb-4">
 		<div class="card-header">
-			<c:if
-				test="${sessionScope.userId == null || sessionScope.userId == ''}">
-				<form class="row g-3 align-items-end" method="get"
-					action="/login.do">
-					<div class="col-md-4">
-						<label for="user_id" class="form-label">아이디</label> <select
-							class="form-select" id="user_id" name="user_id"
-							onchange="setPwd(this.value);">
-							<option value="">선택하세요</option>
-							<option value="admin">관리자</option>
-							<option value="guest">사용자</option>
-						</select>
-					</div>
-					<div class="col-md-4">
-						<label for="password" class="form-label">Password</label> <input
-							type="password" class="form-control" id="password"
-							name="password">
-					</div>
-					<div class="col-md-4">
-						<button type="submit" class="btn btn-primary w-100"
-							onclick="return check();">로그인</button>
-					</div>
-				</form>
-			</c:if>
-			<c:if
-				test="${sessionScope.userId != null && sessionScope.userId != ''}">
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
-						<strong>${sessionScope.userName}</strong>님 환영합니다
-					</div>
-					<button type="button" class="btn btn-secondary" onclick="out();">로그아웃</button>
-				</div>
-			</c:if>
-		</div>
-		<br>
-		<div class="card-body">
-			<form class="row g-3 mb-4" action="/search.do">
-				<div class="col-md-6">
-					<label for="searchName" class="form-label">제목</label> <input
-						type="text" class="form-control" id="searchName" name="searchName">
-				</div>
-				<div class="col-md-6 d-flex align-items-end">
-					<button type="submit" class="btn btn-secondary">검색</button>
-				</div>
-			</form>
-			<br>
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<thead class="table-light">
-						<tr>
-							<th>#</th>
-							<th>게시물목록</th>
-							<th>제목</th>
-							<th>조회수</th>
-							<th>등록자</th>
-							<th>등록일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><a href="javascript:view();">1</a></td>
-							<td><a href="javascript:view();">안녕하세요. 게시판공지 입니다</a></td>
-							<td>1</td>
-							<td>관리자</td>
-							<td>2025-05-24</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		  <c:if test="${sessionScope.userId == null || sessionScope.userId == ''}">
+		    <form class="row g-3 align-items-end" method="get" action="/login.do">
+		      <div class="col-md-4">
+		        <label for="user_id" class="form-label">아이디</label>
+		        <select class="form-select" id="user_id" name="user_id" onchange="setPwd(this.value);">
+		          <option value="">선택하세요</option>
+		          <option value="admin">관리자</option>
+		          <option value="guest">사용자</option>
+		        </select>
+		      </div>
+		      <div class="col-md-4">
+		        <label for="password" class="form-label">Password</label>
+		        <input type="password" class="form-control" id="password" name="password">
+		      </div>
+		      <div class="col-md-4">
+		        <button type="submit" class="btn btn-primary w-100" onclick="return check();">로그인</button>
+		      </div>
+		    </form>
+		  </c:if>
+		
+		  <c:if test="${sessionScope.userId != null && sessionScope.userId != ''}">
+		    <div class="d-flex justify-content-between align-items-center">
+		      <div><strong>${sessionScope.userName}</strong>님 환영합니다</div>
+		      <button type="button" class="btn btn-secondary" onclick="out();">로그아웃</button>
+		    </div>
+		  </c:if>
 		</div>
 
-		<div class="card-footer text-end">
-			<button type="button" class="btn btn-outline-secondary"
-				onclick="add();">등록</button>
-		</div>
-	</div>
-	</div>
+        <div class="card-body">
+            <form class="row g-3 mb-4" action="/search.do">
+                <div class="col-md-6">
+                    <label for="searchName" class="form-label">제목</label>
+                    <input type="text" class="form-control" id="searchName" name="searchName">
+                </div>
+                <div class="col-md-6 d-flex align-items-end">
+                    <button type="submit" class="btn btn-secondary">검색</button>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+							<th>게시물번호</th>
+							<th>제목</th>
+							<th>조회수</th>
+							<th>댓글수</th>
+							<th>등록자</th>
+							<th>등록일</th>
+                        </tr>
+                    </thead>
+					<tbody>
+						<c:forEach var="result" items="${resultList}" varStatus="status">
+							<tr>
+								<td><a href="javascript:view('${result.idx}');"><c:out value="${result.idx}"/></a></td>
+								<td><a href="javascript:view('${result.idx}');"><c:out value="${result.title}"/></a></td>
+								<td><c:out value="${result.count}"/></td>
+								<td><c:out value="${result.reply}"/></td>
+								<td><c:out value="${result.writerNm}"/></td>
+								<td><c:out value="${result.indate}" /></td> 
+								<%-- <td><fmt:formatDate value="${result.indate}" pattern="yyyy-MM-dd hh:mm:ss" /></td> --%>
+							</tr>
+						</c:forEach>
+					</tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <c:if test="${!empty sessionScope.userId }">
+				<button type="button" class="btn btn-secondary" onclick="add();">등록</button>
+			</c:if>
+        </div>
+    </div>
+</div>
 </body>
 </html>
